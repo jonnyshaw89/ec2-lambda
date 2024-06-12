@@ -5,6 +5,8 @@ on:
     branches: [main]
   workflow_dispatch:
 
+env:
+  AWS_REGION: eu-west-2
 
 jobs:
   test-lambda:
@@ -26,6 +28,7 @@ jobs:
   validate-terraform:
     name: Validate Terraform
     runs-on: ubuntu-latest
+    environment: production
     defaults:
       run:
         working-directory: Terraform
@@ -36,6 +39,9 @@ jobs:
         with:
           terraform_version: "1.8.5"
       - name: Validate Terraform
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           terraform init
           terraform validate
