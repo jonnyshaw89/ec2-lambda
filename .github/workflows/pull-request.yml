@@ -10,6 +10,9 @@ jobs:
   test-lambda:
     name: Test Lambda
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Lambda
 
     steps:
       - uses: actions/checkout@v3
@@ -18,12 +21,14 @@ jobs:
           python-version: 3.11
       - name: Build Lambda
         run: |
-          cd Lambda
           sam build -m requirements.txt --use-container
 
   validate-terraform:
     name: Validate Terraform
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Terraform
 
     steps:
       - uses: actions/checkout@v3
@@ -32,7 +37,6 @@ jobs:
           terraform_version: "1.8.5"
       - name: Validate Terraform
         run: |
-          cd Terraform 
           terraform init
           terraform validate
     
