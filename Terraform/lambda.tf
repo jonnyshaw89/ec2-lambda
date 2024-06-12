@@ -41,7 +41,7 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
 }
 
 resource "aws_lambda_function" "ec2_lambda" {
-  filename      = "${path.module}/../Lambda/.aws-sam/package/EC2Lambda.zip"
+  filename      = "${path.cwd}/../Lambda/.aws-sam/package/EC2Lambda.zip"
   function_name = "ec2-lambda"
   role          = aws_iam_role.iam_for_lambda.arn
   handler       = "ec2_lambda.app.lambda_handler"
