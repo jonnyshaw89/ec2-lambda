@@ -25,7 +25,8 @@ jobs:
       - name: Build Lambda
         run: |
           cd Lambda
-          sam build -m requirements.txt --use-container
+          make build
+          make zip
       - name: Deploy Terraform
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
