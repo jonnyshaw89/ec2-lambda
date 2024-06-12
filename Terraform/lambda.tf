@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "lambda_policy" {
       "ec2:StopInstances",
     ]
 
-    resources = ["arn:aws:logs:*:*:*"]
+    resources = ["*"]
   }
 }
 
