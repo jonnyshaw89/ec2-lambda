@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+    Stop EC2 instances that match name parameter
+
+Globals:
+    Function:
+        Timeout: 60
+
+Resources:
+
+    EC2Lambda:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: ./src
+            Handler: ec2_lambda.app.lambda_handler
+            Runtime: python3.11

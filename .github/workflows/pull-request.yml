@@ -1,0 +1,38 @@
+name: Test Lambda
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+
+jobs:
+  test-lambda:
+    name: Test Lambda
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+      - name: Build Lambda
+        run: |
+          cd Lambda
+          sam build -m requirements.txt --use-container
+
+  validate-terraform:
+    name: Validate Terraform
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.8.5"
+      - name: Validate Terraform
+        run: |
+          cd Terraform 
+          terraform init
+          terraform validate
+    
