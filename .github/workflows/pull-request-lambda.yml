@@ -1,0 +1,25 @@
+name: Test Lambda
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+
+jobs:
+  test:
+    name: Test Lambda
+    runs-on: ubuntu-latest
+    environment: production
+
+  steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+        cache: 'pip'
+    - name: Install dependencies
+      run: |
+        cd Lambda
+        sam build -m requirements.txt --use-container
+  
