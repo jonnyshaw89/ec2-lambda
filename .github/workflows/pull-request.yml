@@ -1,4 +1,4 @@
-name: Test Lambda
+name: Test PR
 
 on:
   pull_request:
@@ -24,6 +24,7 @@ jobs:
       - name: Build Lambda
         run: |
           sam build -m requirements.txt --use-container
+          make test
 
   validate-terraform:
     name: Validate Terraform
